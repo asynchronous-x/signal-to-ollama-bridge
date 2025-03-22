@@ -1,0 +1,19 @@
+{
+  "name": "signal-to-ollama-bridge",
+  "version": "1.0.0",
+  "description": "A bridge application that connects Signal REST API to Ollama LLM API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "CC0",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
