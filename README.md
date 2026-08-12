@@ -1,3 +1,5 @@
+
+
 # Signal to Ollama Bridge
 
 A minimal Express.js server that bridges the Signal REST API with the Ollama REST API. This bridge periodically polls the Signal API for new messages, processes them with an Ollama language model, and sends responses back to the original sender.
@@ -45,7 +47,7 @@ A minimal Express.js server that bridges the Signal REST API with the Ollama RES
    # For group chats, use the group ID. For multiple recipients, separate with commas
    SIGNAL_RECIPIENTS=group.AbCdEfGhIjKlMnOpQrStUvWxYz
    # Optional: Set this to only process messages from a specific group chat
-   WATCH_GROUP_ID=group.AbCdEfGhIjKlMnOpQrStUvWxYz
+   WATCH_GROUP_NAME=group.AbCdEfGhIjKlMnOpQrStUvWxYz
    ```
 
 ## Usage
@@ -96,7 +98,7 @@ The bridge processes Ollama's responses in several ways to ensure clean, natural
 1. **Thinking Process Removal**: Removes any content enclosed in `<think>` tags. This is useful for models that include their reasoning or internal thought processes within these tags. For example, if the model responds with:
 
    ```
-   Let me think about this... <think>I should consider what time of day it is and provide a context-appropriate greeting.</think> Hello! How can I help you today?
+   Let me think about this... <think>I should consider what time of day it is and provide a context-appropriate greeting. Hello! How can I help you today?
    ```
 
    The bridge will only send `Let me think about this... Hello! How can I help you today?` back to Signal.
@@ -177,7 +179,7 @@ The system sends the last 10 messages (5 conversation turns) to the language mod
 | SIGNAL_PHONE_NUMBER | Phone number to use for receiving messages | (Required) |
 | POLLING_INTERVAL | Interval in milliseconds between polls | 10000 (10 seconds) |
 | SIGNAL_RECIPIENTS | Comma-separated list of recipients or a group ID | (Uses original sender if not specified) |
-| WATCH_GROUP_ID | Group ID to filter incoming messages by | (Processes all messages if not specified) |
+| WATCH_GROUP_NAME | Group name to filter incoming messages by | (Processes all messages if not specified) |
 
 ## Group Chat Support
 
@@ -185,7 +187,7 @@ To use this bridge with a Signal group chat:
 
 1. Set `SIGNAL_PHONE_NUMBER` to your Signal phone number
 2. Set `SIGNAL_RECIPIENTS` to your group ID (e.g., `group.AbCdEfGhIjKlMnOpQrStUvWxYz`)
-3. Optionally, set `WATCH_GROUP_ID` to the same group ID to only process messages from that group
+3. Optionally, set `WATCH_GROUP_NAME` to the group name to only process messages from that group
 
 You can also specify multiple individual recipients by separating them with commas:
 ```
@@ -194,4 +196,4 @@ SIGNAL_RECIPIENTS=+1234567890,+0987654321
 
 ### Filtering Messages by Group
 
-If you only want to process messages from a specific group chat, set the `WATCH_GROUP_ID` environment variable. Messages from other groups or direct messages will be ignored.
+If you only want to process messages from a specific group chat, set the `WATCH_GROUP_NAME` environment variable. Messages from other groups or direct messages will be ignored.
